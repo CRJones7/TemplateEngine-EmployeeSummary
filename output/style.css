@@ -10,10 +10,11 @@ body {
 .card-header {
     background-color: #84a59d;
     font-weight: bold;
+    text-align: center;
 
 }
-.card-title {
-    text-align: center;
+.employee-card {
+    margin: 10px;
 }
 
 @media (max-width: 991px) {
@@ -22,8 +23,5 @@ body {
     margin-top: auto;
    
 }
-.employee-card {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+
 }
