@@ -31,7 +31,7 @@ function askIfAdd() {
                     if(err){
                         throw err;
                     }
-                    console.log("The file has been created");
+                    console.log("The file has been created!");
                 });
             }
         })
@@ -49,12 +49,19 @@ function askIfAdd() {
                 ]
             }
         ]).then(answer => {
-            if (answer.role === "Manager") {
-                ifManager();
-                
-            } else if (answer.role === "Engineer") {
-                ifEngineer();
-            } else { ifIntern(); }
+            switch(answer.role) {
+                case "Manager": 
+                    ifManager();
+                    break;
+                case "Engineer":
+                    ifEngineer();
+                    break;
+                case "Intern":
+                    ifIntern();
+                    break;
+                default: 
+                    console.log("Something went wrong!")
+            }
         });
     };
     function ifManager() {

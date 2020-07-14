@@ -1,0 +1,29 @@
+body {
+    background-color: #f7ede2;
+    font-family: 'Comfortaa', cursive;
+}
+
+.jumbotron {
+    background-color: #f5cac3;
+    font-weight: bolder;
+}
+.card-header {
+    background-color: #84a59d;
+    font-weight: bold;
+
+}
+.card-title {
+    text-align: center;
+}
+
+@media (max-width: 991px) {
+.team-area {
+    display: block!important;
+    margin-top: auto;
+   
+}
+.employee-card {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+}
