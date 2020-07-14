@@ -10,7 +10,150 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+let team = [];
 
+
+function askIfAdd() {
+        return inquirer.prompt([
+            {
+                type: "confirm",
+                message: "Would you like to add a new employee?",
+                name: "employeeYN"
+            }
+        ]).then(answer => {
+            if(answer.employeeYN === true){
+                askRole();
+            }
+            else{
+                console.log("Your roster is up to date!")
+                const teamHTML = render(team);
+                fs.writeFile(outputPath, teamHTML, err => {
+                    if(err){
+                        throw err;
+                    }
+                    console.log("The file has been created");
+                });
+            }
+        })
+    };
+    function askRole() {
+        return inquirer.prompt([
+            {
+                type: "list",
+                message: "What is the employees role?",
+                name: "role",
+                choices: [
+                    "Manager",
+                    "Engineer",
+                    "Intern"
+                ]
+            }
+        ]).then(answer => {
+            if (answer.role === "Manager") {
+                ifManager();
+                
+            } else if (answer.role === "Engineer") {
+                ifEngineer();
+            } else { ifIntern(); }
+        });
+    };
+    function ifManager() {
+        return inquirer.prompt([
+            {
+                type: "input",
+                message: "Please enter the employees name.",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is their employee ID?",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is the employees email address?",
+                name: "email"
+            },
+            {
+                type: "input",
+                message: "What is their office number?",
+                name: "officeNumber"
+            }
+
+        ]).then(answer => {
+            // github = answer.github;
+            manager = new Manager(answer.name, answer.id, answer.email, answer.officeNumber);
+            team.push(manager); 
+            askIfAdd();
+        })
+    };
+
+    function ifEngineer() {
+        return inquirer.prompt([
+            {
+                type: "input",
+                message: "Please enter the employees name.",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is their employee ID?",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is the employees email address?",
+                name: "email"
+            },
+            {
+                type: "input",
+                message: "What is their github username?",
+                name: "github"
+            }
+
+        ]).then(answer => {
+            // github = answer.github;
+            engineer = new Engineer(answer.name, answer.id, answer.email, answer.github);
+            team.push(engineer);
+            askIfAdd(); 
+        })
+    };
+
+
+    function ifIntern() {
+        return inquirer.prompt([
+            {
+                type: "input",
+                message: "Please enter the employees name.",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is their employee ID?",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is the employees email address?",
+                name: "email"
+            },
+            {
+                type: "input",
+                message: "What school do they attend?",
+                name: "school"
+            }
+
+        ]).then(answer => {
+            // github = answer.github;
+            intern = new Intern(answer.name, answer.id, answer.email, answer.school);
+            team.push(intern); 
+            askIfAdd();
+        });
+    };
+    askIfAdd();
+
+        
+    
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
